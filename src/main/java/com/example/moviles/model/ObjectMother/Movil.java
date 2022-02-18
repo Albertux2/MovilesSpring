@@ -1,6 +1,6 @@
 package com.example.moviles.model.ObjectMother;
 
-import com.example.moviles.HistoricoPrecio;
+import com.example.moviles.model.Historico.HistoricoPrecio;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;

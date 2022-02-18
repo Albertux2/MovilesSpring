@@ -1,4 +1,4 @@
-package com.example.moviles;
+package com.example.moviles.model.Historico;
 
 import com.example.moviles.model.ObjectMother.Movil;
 

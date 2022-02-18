@@ -6,6 +6,7 @@ import java.util.Random;
 public class ObjectMother {
     private final int MAX_NUCLEOS = 11;
     Random random = new Random();
+    private String marcas[] = {"Alpha","Omega","Delta","Doko","Turbo","Dovux","LG","Xiaomi","Sony","Realme","Apple","Samsung","Acer","Alcatel","Asus","BlackShark","BlackBerry","Blackview","Cubot","Google","Hisense","HTC","Huawei","Lenovo","Meizu","Motorola","Nokia","Nubia","Oppo","Poco","Razer","THL","TCL","Ulefone","Vivo","Redmi","ZTE"};
 
     public ArrayList<Movil> generarMoviles(int cantidad) {
         ArrayList<Movil> moviles = new ArrayList<Movil>();
@@ -27,7 +28,7 @@ public class ObjectMother {
         Ram ram = new Ram(calcularRam(procesador));
         Pantalla pantalla = new Pantalla(calcularPantalla(procesador));
         Bateria bateria = calcularBateria(pantalla);
-        return new Movil(bateria, pantalla, ram, procesador, RandomNombre.crearPalabra(6), RandomNombre.crearPalabra(5));
+        return new Movil(bateria, pantalla, ram, procesador, marcas[random.nextInt(marcas.length-1)], RandomNombre.crearPalabra(5));
     }
 
     private int calcularRam(Procesador procesador) {

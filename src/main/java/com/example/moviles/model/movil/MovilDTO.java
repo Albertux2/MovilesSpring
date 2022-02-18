@@ -1,4 +1,4 @@
-package com.example.moviles;
+package com.example.moviles.model.movil;
 
 import com.example.moviles.model.ObjectMother.Bateria;
 import com.example.moviles.model.ObjectMother.Pantalla;

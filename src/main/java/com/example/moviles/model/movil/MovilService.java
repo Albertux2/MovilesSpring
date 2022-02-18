@@ -1,19 +1,24 @@
-package com.example.moviles;
+package com.example.moviles.model.movil;
 
+import com.example.moviles.model.Historico.HistorialRepo;
+import com.example.moviles.model.Historico.HistoricoPrecio;
 import com.example.moviles.model.ObjectMother.Movil;
 import com.example.moviles.model.ObjectMother.MovilRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MovilService {
     @Autowired
     MovilRepo movilRepo;
+    @Autowired
+    HistorialRepo historicoRepo;
+
     MovilMapperImpl mapper = new MovilMapperImpl();
 
     public List<Movil> findByModeloStartingWith(String inicioNombre) {
@@ -52,10 +57,40 @@ public class MovilService {
         return movilRepo.findByAntutuGreaterThanEqualAndAntutuLessThanEqual(max, min);
     }
 
+    public Page<Movil> findByMarcaContainsOrModeloContains(String marca,String modelo, Pageable pageable){
+        return movilRepo.findByMarcaContainingOrModeloContaining(marca,modelo,pageable);
+    }
+
+    public List<Movil> findByMarcaContainsOrModeloContains(String marca,String modelo){
+        return movilRepo.findByMarcaContainingOrModeloContaining(marca,modelo);
+    }
+
+    public List<Movil> findByIdIn(List<Long> ids){
+        return this.movilRepo.findByIdIn(ids);
+    }
+
+    public List<HistoricoPrecio> findHistorico(Long id){
+        return this.historicoRepo.findByMovil_Id(id);
+    }
+
+    public Page<Movil> findByFilter(String value,int page,MovilFilter filter){
+        List<Movil> moviles = findByMarcaContainsOrModeloContains(value,value);
+        return listToPage(filter.filter(moviles),page);
+    }
+
     public void update(MovilDTO dto, long id){
         Movil movil = movilRepo.findById(id).get();
         mapper.updateMovilFromDto(dto,movil);
         movilRepo.save(movil);
+    }
 
+    private Page<Movil> listToPage(List<Movil> list, int page){
+        Pageable paginaCon8 = PageRequest.of(page, 8, Sort.by("id").ascending());
+        // Skipea los elementos de las páginas anteriores y lo limita al tamaño del pageable
+        List<Movil> paged = list.parallelStream()
+                .skip(paginaCon8.getPageSize() * paginaCon8.getPageNumber())
+                .limit(paginaCon8.getPageSize())
+                .collect(Collectors.toList());
+        return new PageImpl(paged,paginaCon8,list.size());
     }
 }

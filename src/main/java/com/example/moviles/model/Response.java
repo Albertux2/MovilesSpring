@@ -66,6 +66,34 @@ public class Response {
         return this.data;
     }
 
+    public void setTimeStamp(LocalDateTime timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
+    public void setStatusCode(int statusCode) {
+        this.statusCode = statusCode;
+    }
+
+    public void setStatus(HttpStatus status) {
+        this.status = status;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setDeveloperMessage(String developerMessage) {
+        this.developerMessage = developerMessage;
+    }
+
+    public void setData(Map<?, ?> data) {
+        this.data = data;
+    }
+
     public static class ResponseBuilder{
         private LocalDateTime timeStamp;
         private int statusCode;

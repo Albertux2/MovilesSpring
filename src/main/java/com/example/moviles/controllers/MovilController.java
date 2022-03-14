@@ -1,20 +1,20 @@
-package com.example.moviles.model.movil;
+package com.example.moviles.controllers;
 
 import com.example.moviles.model.Historico.HistoricoPrecio;
 import com.example.moviles.model.ObjectMother.Movil;
 import com.example.moviles.model.Response;
+import com.example.moviles.model.movil.MovilDTO;
+import com.example.moviles.model.movil.MovilFilter;
+import com.example.moviles.services.MovilService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -52,6 +52,7 @@ public class MovilController {
                 .status(HttpStatus.OK)
                 .data(Map.of("moviles", movilService.findByMarcaContainsOrModeloContains(value, value, paginaCon8)))
                 .build();
+        System.out.println("Entro al controller");
         return new ResponseEntity<Response>(moviles_recuperados, HttpStatus.OK);
     }
 
@@ -68,10 +69,6 @@ public class MovilController {
         return new ResponseEntity<Response>(moviles_recuperados, HttpStatus.OK);
     }
 
-    @GetMapping("test")
-    public MovilFilter filterTest(@RequestBody MovilFilter filter){
-        return filter;
-    }
 
     @GetMapping("idList")
     public List<Movil> idList(@RequestParam("ids") List<Long> ids) {

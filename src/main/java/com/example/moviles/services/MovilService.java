@@ -1,9 +1,12 @@
-package com.example.moviles.model.movil;
+package com.example.moviles.services;
 
 import com.example.moviles.model.Historico.HistorialRepo;
 import com.example.moviles.model.Historico.HistoricoPrecio;
 import com.example.moviles.model.ObjectMother.Movil;
 import com.example.moviles.model.ObjectMother.MovilRepo;
+import com.example.moviles.model.movil.MovilDTO;
+import com.example.moviles.model.movil.MovilFilter;
+import com.example.moviles.model.movil.MovilMapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -73,7 +76,7 @@ public class MovilService {
         return this.historicoRepo.findByMovil_Id(id);
     }
 
-    public Page<Movil> findByFilter(String value,int page,MovilFilter filter){
+    public Page<Movil> findByFilter(String value, int page, MovilFilter filter){
         List<Movil> moviles = findByMarcaContainsOrModeloContains(value,value);
         return listToPage(filter.filter(moviles),page);
     }

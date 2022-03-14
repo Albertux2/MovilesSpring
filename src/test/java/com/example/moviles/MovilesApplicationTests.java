@@ -28,15 +28,15 @@ class MovilesApplicationTests {
 
     @Test
     void contextLoads() {
-        repo.saveAll(movilMother.generarMoviles(1000));
-        Iterable<Movil> moviles = repo.findAll();
-        moviles.forEach(movil -> {
-            for (int i = 2; i < 7; i++) {
-                movil.setPrecio(movil.getPrecio()+(random.nextInt(max-min)+min));
-                repo.save(movil);
-                historialRepo.save(new HistoricoPrecio(new Date(new Date().getTime() + (86400000*i)),movil));
-            }
-        });
+//        repo.saveAll(movilMother.generarMoviles(1000));
+//        Iterable<Movil> moviles = repo.findAll();
+//        moviles.forEach(movil -> {
+//            for (int i = 2; i < 7; i++) {
+//                movil.setPrecio(movil.getPrecio()+(random.nextInt(max-min)+min));
+//                repo.save(movil);
+//                historialRepo.save(new HistoricoPrecio(new Date(new Date().getTime() + (86400000*i)),movil));
+//            }
+//        });
     }
 
 }
